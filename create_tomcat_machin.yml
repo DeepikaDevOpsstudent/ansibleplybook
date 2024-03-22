@@ -1,0 +1,39 @@
+---
+- name: test playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: installed java on redhat
+    yum:
+      name: java
+      state: installed
+    when: ansible_os_family == 'RedHat'
+
+  - name: installed java on redhat
+    apt:
+      name: defaul-jdk
+      state: present
+    when: ansible_os_family == 'Debian'
+
+  - name: download tomcat
+    get_url:
+      url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.87.tar.gz
+      dest: /opt
+
+  - name: extract tomcat tar file 
+    unarchive:
+      src: /opt/apache-tomcat-9.0.87.tar.gz
+      dest: /opt
+      remote_src: yes
+      creates: /opt/apache-tomcat-9.0.87
+
+  - name: change file permission
+    file: 
+      path: /opt/apache-tomcat-9.0.87/bin/startup.sh
+      mode: 0777
+
+  - name: excute .sh file to start tomcat
+    shell: ./startup.sh
+    args:
+      chdir: /opt/apache-tomcat-9.0.87/bin 
+      

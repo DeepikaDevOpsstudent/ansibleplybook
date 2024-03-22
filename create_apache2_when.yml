@@ -1,0 +1,28 @@
+---
+- name: test playbook
+  hosts: all
+  become: yes
+  tasks: 
+  - name: installed httpd
+    yum:
+      name: httpd
+      state: present
+    notify: start httpd    
+    when: ansible_os_family == 'RedHat'
+
+  - name: installed apache2
+    apt:
+      name: apache2
+      state: present
+    notify: start apache2
+    when: ansible_os_family == 'Debian'
+
+  handlers:
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+  - name: start apache2
+    service:
+      name: apache2
+      state: started    

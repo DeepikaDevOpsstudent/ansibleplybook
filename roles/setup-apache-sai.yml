@@ -1,0 +1,6 @@
+---
+- name: test playbook
+  hosts: all
+  become: yes
+  roles: 
+  - setup-apache-roles

@@ -1,0 +1,11 @@
+---
+- name: test playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: copy file 
+    copy:
+      src: /home/deepika/demofile
+      dest: /tmp
+      mode: 0644
+      owner: akshay 

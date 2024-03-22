@@ -1,0 +1,9 @@
+---
+- name: this test playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: removing directory
+    file:
+      path: /tmp/demodrt
+      state: absent

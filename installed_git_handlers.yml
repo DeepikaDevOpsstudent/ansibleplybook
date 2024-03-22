@@ -1,0 +1,15 @@
+---
+- name: test playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: installed git package
+    yum:
+      name: git
+      state: present
+    notify: git start
+  handlers:
+  - name: git start
+    service:
+      name: git
+      state: started

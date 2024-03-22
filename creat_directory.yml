@@ -1,0 +1,9 @@
+---
+- name: this test playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: creating directory
+    file:
+      path: /tmp/demodrt
+      state: directory

@@ -1,0 +1,15 @@
+---
+- name: test playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: installed tree package
+    yum:
+      name: tree
+      state: present
+    notify: tree start
+  handlers:
+  - name: tree start
+    service:
+      name: tree
+      state: started
